@@ -169,6 +169,3 @@ while run:
 # pygame.quit()
 cap.release()
 cv2.destroyAllWindows()
-
-
-
