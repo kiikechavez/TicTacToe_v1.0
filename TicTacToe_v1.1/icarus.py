@@ -1,5 +1,8 @@
+# -*- coding: utf-8 -*-
 import cv2
 import numpy as np
+from funciones_tres_raya import *
+#from funciones_robot import *
 #import pygame
 #import tkinter as tk
 import time
@@ -113,7 +116,14 @@ print(cap.get(3), cap.get(4))
 #--------------------------------------------------------------------------
 
 run = True
-
+theBoard = [' '] * 10
+turn='player'
+counter=0
+azules=[0]
+rojas=[0]
+playerLetter='X'
+computerLetter='O'
+counterR=0
 while run:
     """ Main Program """
     # 2.1. Cargar condiciones.
@@ -133,7 +143,7 @@ while run:
         print(fichasA)
         red1_validation_x, red1_validation_y, rojo1,fichasB = color_capture(cap, rojoAlto1, rojoBajo1, 0,0)
         cv2.imshow('Rojo 1', rojo1)
-        print(fichasB)
+        #print(fichasB)
         time.sleep(1)
         #red2_validation_x, red2_validation_y, rojo2 = color_capture(cap, rojoAlto2, rojoBajo2, 0,0)# Detectando el objeto verde
         #cv2.imshow('Rojo 2', rojo2)
@@ -162,9 +172,57 @@ while run:
         k = cv2.waitKey(5) & 0xFF
         if k == 27:
             break
-
-    break
-
+        
+        if turn == 'player':#Azules
+            
+#             # Player's turn.
+#             drawBoard(theBoard)
+#             move = getPlayerMove(theBoard)
+#             makeMove(theBoard, playerLetter, move)
+            for i in fichasA:
+                if i==0 or i==None:
+                    theBoard=theBoard
+                elif i in azules:
+                    theBoard=theBoard
+                else:
+                    move=i
+                    azules.append(i)
+                    print(azules)
+                    makeMove(theBoard, playerLetter, move)
+                    print(theBoard)
+                    counter = counter + 1
+                    if isWinner(theBoard, playerLetter):
+                         drawBoard(theBoard)
+                         print('Hooray! You have won the game!')
+                         run = False
+                         break
+                    if isBoardFull(theBoard):
+                        drawBoard(theBoard)
+                        print('The game is a tie!')
+                        break
+                    else:
+                        turn = 'computer'
+        if turn=='computer':
+             # Computer's turn.
+             move = getComputerMove(theBoard, computerLetter, counter)
+             makeMove(theBoard, computerLetter, move)
+             #robotmove(move,counterR)
+             #counterR+=1
+             counter=counter+1
+             print(theBoard)
+             drawBoard(theBoard)
+             if isWinner(theBoard, computerLetter):
+                 drawBoard(theBoard)
+                 print('The computer has beaten you! You lose.')
+                 run = False
+             if isBoardFull(theBoard):
+                 drawBoard(theBoard)
+                 print('The game is a tie!')
+                 break
+             else:
+                 turn = 'player'
+    if not playAgain():
+        break
 #2.4 Cierra del juego y sus ventanas.
 # pygame.quit()
 cap.release()

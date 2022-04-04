@@ -83,8 +83,10 @@ def dobot_cmd_send_10( VelRat = 100, AccRat = 100 ):
     dobot_cmd_send( cmd_str_10 )
 
 def TicTacToeInit():
-    ser.write(bytes.fromhex('a5000010410000804000000000000000000000000000000000000000000000000000000000000000005a'))
+    #ser.write(bytes.fromhex('a5000010410000804000000000000000000000000000000000000000000000000000000000000000005a'))
+    ser.close()
     time.sleep(1.8) 
+    ser.open()
     # #ser.write(b)
     dobot_cmd_send_9() #config
     time.sleep( 0.5 )
@@ -93,7 +95,7 @@ def TicTacToeInit():
     dobot_cmd_send_10() #config
     time.sleep( 0.5 )
 
-print ("Dobot Test Begin")
+#print ("Dobot Test Begin")
 #b='hello'.encode('utf-8')
 ser.write(bytes.fromhex('a5000010410000804000000000000000000000000000000000000000000000000000000000000000005a'))
 time.sleep(1.8) 
@@ -104,48 +106,159 @@ time.sleep( 0.5 )
 #time.sleep( 0.5 )
 dobot_cmd_send_10() #config
 time.sleep( 0.5 )
-dobot_cmd_send_3( 246, 0, 8.735 )
+dobot_cmd_send_3( 200, 0, 58.735) #Se ubica en Home
 time.sleep( 0.5 )
-dobot_cmd_send_3( 286, 70, -85, 1  )#Pos cilindro 1
+TicTacToeInit()
+dobot_cmd_send_3( 200, 200, 58) #Se dirije a cilindro 1
 time.sleep( 0.5 )
-dobot_cmd_send_3( 286, 70, -30, 1 )
+dobot_cmd_send_3( 200, 200,-5, 1) #Recoje cilindro 1
 time.sleep( 0.5 )
-dobot_cmd_send_3( 236, 0, -80, 1  )
+dobot_cmd_send_3( 200, 0, 58.735, 1 ) #Vuelve a home
 time.sleep( 0.5 )
-dobot_cmd_send_3( 236, 0, -80, 0)
+dobot_cmd_send_3( 230, -65, 18) #Ubica el cilindro 1 en la posición 1
 time.sleep( 0.5 )
-dobot_cmd_send_3( 246, 0, 8.735)
-time.sleep( 0.5 )
-dobot_cmd_send_3( 226, 70, -85, 1  )#Pos cilindro 2
-time.sleep( 0.5 )
-dobot_cmd_send_3( 226, 70, -30, 1  )
-time.sleep( 0.5 )
-dobot_cmd_send_3( 186, 0, -80, 1   )
-time.sleep( 0.5 )
-dobot_cmd_send_3( 186, 0, -80 )
+dobot_cmd_send_3( 200, 0, 58.735) #Vuelve a home
 time.sleep( 0.5 )
 ser.close()
-time.sleep( 0.5 )
+time.sleep( 1.8 )
 ser.open()
 dobot_cmd_send_9() #config
 time.sleep( 0.5 )
 dobot_cmd_send_10() #config
 time.sleep( 0.5 )
-dobot_cmd_send_3( 246, 0, 8.735 )
+dobot_cmd_send_3(150, 200, 58) #Se dirije al cilindro 2
 time.sleep( 0.5 )
-dobot_cmd_send_3( 181, 70, -85, 1  )#Pos cilindro 3
+dobot_cmd_send_3(150, 200, -5, 1) #Recoje cilindro 2
 time.sleep( 0.5 )
-dobot_cmd_send_3( 181, 70, -30, 1  )
+dobot_cmd_send_3( 200, 0, 58.735 ,1) #Vuelve a home
 time.sleep( 0.5 )
-dobot_cmd_send_3( 286, -50, -80, 1  )
+dobot_cmd_send_3( 230, 0, 18) #Ubica el cilindro 2 en la posición 2
 time.sleep( 0.5 )
-dobot_cmd_send_3( 286, -50, -80, 0  )
+dobot_cmd_send_3( 200, 0, 58.735 ) #Vuelve a home
 time.sleep( 0.5 )
-#dobot_cmd_send_3( 0, -246.607, 8.735  )
-#time.sleep( 0.5 )
-#dobot_cmd_send_3( 246, 0, 0 )
-#time.sleep( 0.5 )
-dobot_cmd_send_3( 246, 0, 8.735 )
+ser.close()
+time.sleep( 1.8 )
+ser.open()
+dobot_cmd_send_9() #config
 time.sleep( 0.5 )
+dobot_cmd_send_10() #config
+time.sleep( 0.5 )
+dobot_cmd_send_3(150, 200, 58) #Se dirije al cilindro 3
+time.sleep( 0.5 )
+dobot_cmd_send_3(150, 200, -5, 1) #Recoje cilindro 3
+time.sleep( 0.5 )
+dobot_cmd_send_3( 200, 0, 58.735 ,1) #Vuelve a home
+time.sleep( 0.5 )
+dobot_cmd_send_3( 230, 65, 18) #Ubica el cilindro 3 en la posición 3
+time.sleep( 0.5 )
+dobot_cmd_send_3( 200, 0, 58.735 ) #Vuelve a home
+time.sleep( 0.5 )
+ser.close()
+time.sleep( 1.8 )
+ser.open()
+dobot_cmd_send_9() #config
+time.sleep( 0.5 )
+dobot_cmd_send_10() #config
+time.sleep( 0.5 )
+dobot_cmd_send_3(150, 200, 58) #Se dirije al cilindro 4
+time.sleep( 0.5 )
+dobot_cmd_send_3(150, 200, -5, 1) #Recoje cilindro 4
+time.sleep( 0.5 )
+dobot_cmd_send_3( 200, 0, 58.735 ,1) #Vuelve a home
+time.sleep( 0.5 )
+dobot_cmd_send_3( 200, -65, 18) #Ubica el cilindro 4 en la posición 4
+time.sleep( 0.5 )
+dobot_cmd_send_3( 200, 0, 58.735 ) #Vuelve a home
+time.sleep( 0.5 )
+ser.close()
+'''Configurando cilindro 5 en la posición 5 '''
+time.sleep( 1.8 )
+ser.open()
+dobot_cmd_send_9() #config
+time.sleep( 0.5 )
+dobot_cmd_send_10() #config
+time.sleep( 0.5 )
+dobot_cmd_send_3(150, 200, 58) #Se dirije al cilindro 5
+time.sleep( 0.5 )
+dobot_cmd_send_3(150, 200, -5, 1) #Recoje cilindro 5
+time.sleep( 0.5 )
+dobot_cmd_send_3( 200, 0, 58.735 ,1) #Vuelve a home
+time.sleep( 0.5 )
+dobot_cmd_send_3( 200, 0, 18) #Ubica el cilindro 5 en la posición 5
+time.sleep( 0.5 )
+dobot_cmd_send_3( 200, 0, 58.735 ) #Vuelve a home
+time.sleep( 0.5 )
+ser.close()
+'''Configurando cilindro 6 en la posición 6 '''
+time.sleep(1.8)
+ser.open()
+dobot_cmd_send_9() #config
+time.sleep(0.5)
+dobot_cmd_send_10() #config
+time.sleep(0.5)
+dobot_cmd_send_3(150, 200, 58) #Se dirije al cilindro 6
+time.sleep(0.5)
+dobot_cmd_send_3(150, 200, -5, 1) #Recoje cilindro 6
+time.sleep(0.5)
+dobot_cmd_send_3( 200, 0, 58.735 ,1) #Vuelve a home
+time.sleep(0.5)
+dobot_cmd_send_3( 200, 65, 18) #Ubica el cilindro 6 en la posición 6
+time.sleep(0.5)
+dobot_cmd_send_3( 200, 0, 58.735 ) #Vuelve a home
+time.sleep(0.5)
+ser.close()
+'''Configurando cilindro 7 en la posición 7 '''
+time.sleep(1.8)
+ser.open()
+dobot_cmd_send_9() #config
+time.sleep(0.5)
+dobot_cmd_send_10() #config
+time.sleep(0.5)
+dobot_cmd_send_3(150, 200, 58) #Se dirije al cilindro 7
+time.sleep(0.5)
+dobot_cmd_send_3(150, 200, -5, 1) #Recoje cilindro 7
+time.sleep(0.5)
+dobot_cmd_send_3( 200, 0, 58.735 ,1) #Vuelve a home
+time.sleep(0.5)
+dobot_cmd_send_3( 170, -65, 18) #Ubica el cilindro 7 en la posición 7
+time.sleep(0.5)
+dobot_cmd_send_3( 200, 0, 58.735 ) #Vuelve a home
+time.sleep(0.5)
+ser.close()
+'''Configurando cilindro 8 en la posición 8 '''
+time.sleep(1.8)
+ser.open()
+dobot_cmd_send_9() #config
+time.sleep(0.5)
+dobot_cmd_send_10() #config
+time.sleep(0.5)
+dobot_cmd_send_3(150, 200, 58) #Se dirije al cilindro 8
+time.sleep(0.5)
+dobot_cmd_send_3(150, 200, -5, 1) #Recoje cilindro 8
+time.sleep(0.5)
+dobot_cmd_send_3( 200, 0, 58.735 ,1) #Vuelve a home
+time.sleep(0.5)
+dobot_cmd_send_3( 170, 0, 18) #Ubica el cilindro 8 en la posición 8
+time.sleep(0.5)
+dobot_cmd_send_3( 200, 0, 58.735 ) #Vuelve a home
+time.sleep(0.5)
+ser.close()
+'''Configurando cilindro 9 en la posición 9 '''
+time.sleep(1.8)
+ser.open()
+dobot_cmd_send_9() #config
+time.sleep(0.5)
+dobot_cmd_send_10() #config
+time.sleep(0.5)
+dobot_cmd_send_3(150, 200, 58) #Se dirije al cilindro 8
+time.sleep(0.5)
+dobot_cmd_send_3(150, 200, -5, 1) #Recoje cilindro 8
+time.sleep(0.5)
+dobot_cmd_send_3( 200, 0, 58.735 ,1) #Vuelve a home
+time.sleep(0.5)
+dobot_cmd_send_3( 170, 65, 18) #Ubica el cilindro 8 en la posición 8
+time.sleep(0.5)
+dobot_cmd_send_3( 200, 0, 58.735 ) #Vuelve a home
+time.sleep(0.5)
 ser.close()
 print ("Dobot Test End")
