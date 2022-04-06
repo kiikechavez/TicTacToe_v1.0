@@ -2,9 +2,7 @@
 import cv2
 import numpy as np
 from funciones_tres_raya import *
-#from funciones_robot import *
-#import pygame
-#import tkinter as tk
+from funciones_robot import *
 import time
 #import sys
 #from functools import partial
@@ -115,22 +113,22 @@ print(cap.get(3), cap.get(4))
 #-------2. Correr el juego ------------------------------------------------
 #--------------------------------------------------------------------------
 
-run = True
-theBoard = [' '] * 10
-turn='player'
-counter=0
-azules=[0]
-rojas=[0]
+
+
 playerLetter='X'
 computerLetter='O'
-counterR=0
+run = True
 while run:
     """ Main Program """
     # 2.1. Cargar condiciones.
-   
+    auto=input('Juego automatico? (yes or no)')
     done = False
-    play = False # Variable de confirmación de Captura
-    
+    theBoard = [' '] * 10
+    turn='player'
+    counter=0
+    counterR=0
+    azules=[0]
+    #rojas=[0]
     # 2.3 Jugar
     while not done:       
         #--------------------------------------------------------------------------
@@ -141,26 +139,14 @@ while run:
         blue_validation_x, blue_validation_y, azul,fichasA = color_capture(cap, azulAlto, azulBajo, 0,0)
         cv2.imshow('res', azul)
         print(fichasA)
-        red1_validation_x, red1_validation_y, rojo1,fichasB = color_capture(cap, rojoAlto1, rojoBajo1, 0,0)
-        cv2.imshow('Rojo 1', rojo1)
+        #red1_validation_x, red1_validation_y, rojo1,fichasB = color_capture(cap, rojoAlto1, rojoBajo1, 0,0)
+        #cv2.imshow('Rojo 1', rojo1)
         #print(fichasB)
         time.sleep(1)
         #red2_validation_x, red2_validation_y, rojo2 = color_capture(cap, rojoAlto2, rojoBajo2, 0,0)# Detectando el objeto verde
         #cv2.imshow('Rojo 2', rojo2)
         #rojo=rojo1+rojo2
         #cv2.imshow('Rojo 1', rojo)
-        #Da inicio de arranque (Mi objeto debe estar en esas posiciones para iniciar)
-        #if(green_validation_x>55 and green_validation_x<85 and green_validation_y>80 and green_validation_y<280): 
-         #   play = True
-        # Actualización de la posición
-        # if(play):
-        #     player.rect.x = green_validation_x
-        #     player.rect.y = green_validation_y
-
-        # Juego en marcha
-        # for event in pygame.event.get():
-        #     if event.type == pygame.QUIT:
-        #         done = True
         ret, frame = cap.read() 
         frame = cv2.resize(frame, (640, 480))
         frame = cv2.rectangle(frame, (233,135), (298,205), (0,255,0), 2)#7
@@ -194,30 +180,36 @@ while run:
                     if isWinner(theBoard, playerLetter):
                          drawBoard(theBoard)
                          print('Hooray! You have won the game!')
-                         run = False
+                         done = True
                          break
                     if isBoardFull(theBoard):
                         drawBoard(theBoard)
                         print('The game is a tie!')
+                        done = True
                         break
                     else:
                         turn = 'computer'
         if turn=='computer':
-             # Computer's turn.
-             move = getComputerMove(theBoard, computerLetter, counter)
+            # Computer's turn.
+             if auto=='yes':
+                move = getComputerMove(theBoard, computerLetter, counter)            
+             else:
+                move =int(input('Ingrese movimiento: '))
              makeMove(theBoard, computerLetter, move)
-             #robotmove(move,counterR)
-             #counterR+=1
+             RobotMove(move,counterR)
+             counterR+=1
              counter=counter+1
              print(theBoard)
              drawBoard(theBoard)
              if isWinner(theBoard, computerLetter):
                  drawBoard(theBoard)
                  print('The computer has beaten you! You lose.')
-                 run = False
+                 done = True
+                 break
              if isBoardFull(theBoard):
                  drawBoard(theBoard)
                  print('The game is a tie!')
+                 done = True
                  break
              else:
                  turn = 'player'
